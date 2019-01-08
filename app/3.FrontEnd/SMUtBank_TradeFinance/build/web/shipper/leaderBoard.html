@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+
+<head>
+
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous"> -->
+    <!-- <script src="../assets/js/jquery.min.js"></script> -->
+    <!-- Bootstrap -->
+    <!-- <script src="../assets/js/bootstrap.js"></script> -->
+    <!-- App -->
+    <script src="../assets/js/app.js"></script>
+    <script src="../assets/js/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js"></script>
+    <script src="../assets/js/DAO/gameHandling.js"></script>
+
+</head>
+
+<script>
+    $(document).ready(function() {
+        totalScores();
+    });
+    async function totalScores() {
+//        var preScore = 0;
+//        let getGameScore1 = await getGameScore(sessionStorage.userID, sessionStorage.PIN, sessionStorage.OTP, sessionStorage.gameID, "2017-01-01 00:00:00", "2019-01-01 00:00:00", "UATPretest");
+//        var totalScorePre = JSON.stringify(getGameScore1.Content.ServiceResponse.ScoreDetails.total_score);
+//        console.log("totalScorePre:  " + totalScorePre);
+//        if (totalScorePre === "null") {
+//            //console.log("inside");
+//            preScore += Number(0);
+//        } else {
+//            totalScorePre = totalScorePre.substr(1).slice(0, -1);
+//            preScore += Number(totalScorePre);
+//        }
+        $('#preScore').html(sessionStorage.preScore + "/9");
+
+//        var postScore = 0;
+//        let getGameScorePost = await getGameScore(sessionStorage.userID, sessionStorage.PIN, sessionStorage.OTP, sessionStorage.gameID, "2017-01-01 00:00:00", "2019-01-01 00:00:00", "UATPosttest");
+//        var totalScorePost = JSON.stringify(getGameScorePost.Content.ServiceResponse.ScoreDetails.total_score);
+//        if (totalScorePost === "null") {
+//            postScore += Number(0);
+//        } else {
+//            totalScorePost = totalScorePost.substr(1).slice(0, -1);
+//            postScore += Number(totalScorePost);
+//
+//        }
+
+        $('#postScore').html(sessionStorage.postScore + "/9");
+    }
+</script>
+
+<section class="vbox">
+    <section class="scrollable">
+        <div class="wrapper-lg">
+            <h2 class="m-b-xs font-bold m-t-none">Leader Board</h2>
+        </div>
+        <section class="panel panel-default">
+            <div class="row m-l-none m-r-none bg-light lter">
+                <div class="col-sm-12 col-md-6 padder-v b-r b-light">
+                    <span class="fa-stack fa-2x pull-left m-r-sm">
+                        <i class="fa fa-circle fa-stack-2x text-info"></i>
+                        <i class="fa fa-male fa-stack-1x text-white"></i>
+                    </span>
+                    <a class="clear" href="#">
+                        <span class="h3 block m-t-xs"><strong id="preScore">
+                            </strong></span>
+                        <small class="text-muted text-uc font-bold">Individual Pre-Quiz Score</small>
+                    </a>
+                </div>
+                <div class="col-sm-12 col-md-6 padder-v b-r b-light lt">
+                    <span class="fa-stack fa-2x pull-left m-r-sm">
+                        <i class="fa fa-circle fa-stack-2x text-warning"></i>
+                        <i class="fa fa-male fa-stack-1x text-white"></i>
+                        <span class="easypiechart pos-abt" data-percent="100" data-line-width="4" data-track-Color="#fff" data-scale-Color="false" data-size="50" data-line-cap='butt' data-animate="2000" data-target="#bugs" data-update="3000"></span>
+                    </span>
+                    <a class="clear" href="#">
+                        <span class="h3 block m-t-xs"><strong id="postScore"></strong></span>
+                        <small class="text-muted text-uc font-bold">Individual Post-Quiz Score</small>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+
+        <div class="container">
+            <h1 class="display-2 text-center">TEAM LEADERBOARD RESULTS</h1>
+            <div class="wrapper-lg">
+                <h3 id="table1"></h3>
+
+            </div>
+        </div>
+
+
+
+        <script>
+            $(document).ready(function() {
+
+                popArray();
+            });
+ 
+            async function preArray() {
+                var mainArr;
+                var arrUserId = [];
+                var arrScore = [];
+                //getGameLeaders(userId, PIN, OTP, gameId, startTime, endTime, mode, byGroup, callback)
+                const getGameLeadersPre = await getGameLeaders(sessionStorage.userID, sessionStorage.PIN, sessionStorage.OTP, sessionStorage.gameID, "2017-01-01 00:00:00", "2019-01-01 00:00:00", "Toffeemint_Pretest", true);
+                //getGameLeaders(sessionStorage.userID, sessionStorage.PIN, sessionStorage.OTP, sessionStorage.gameID, "2017-01-01 00:00:00", "2019-01-01 00:00:00", "Pretest", false, function (callback) {
+                //console.log(getGameLeadersPre);
+                //console.log("pop leaders ---------------");
+                var testArr = getGameLeadersPre;
+                mainArr = testArr['Content']['ServiceResponse']['LeaderDetails']['Leaders']['Leader'] //main
+                    //console.log(mainArr);
+                    //console.log(mainArr.length);
+                for (i = 0; i < mainArr.length && i < 10; i++) {
+                    //console.log(mainArr[i]);
+                    arrUserId[i] = mainArr[i]['user_Id'];
+                    arrScore[i] = mainArr[i]['score'];
+                }
+
+                //console.log(arrUserId);
+                //console.log(arrScore);
+                return [arrUserId, arrScore];
+            }
+            async function postArray() {
+                var pmainArr;
+                var parrUserId = [];
+                var parrScore = [];
+                const getGameLeadersPost = await getGameLeaders(sessionStorage.userID, sessionStorage.PIN, sessionStorage.OTP, sessionStorage.gameID, "2017-01-01 00:00:00", "2019-01-01 00:00:00", "Toffeemint_Posttest", true);
+                //getGameLeaders(sessionStorage.userID, sessionStorage.PIN, sessionStorage.OTP, sessionStorage.gameID, "2019-01-01 00:00:00", "Posttest", false, function(callback) {
+                var ptestArr = getGameLeadersPost;
+                //});
+                pmainArr = ptestArr['Content']['ServiceResponse']['LeaderDetails']['Leaders']['Leader'] //main
+                    //console.log(pmainArr);
+                    //console.log(pmainArr.length);
+                for (i = 0; i < pmainArr.length && i < 10; i++) {
+                    parrUserId[i] = pmainArr[i]['user_Id'];
+                    parrScore[i] = pmainArr[i]['score'];
+                }
+
+                return parrScore;
+
+            }
+            async function popArray() {
+                var popmainArr;
+                var poparrUserId = [];
+                var parrScore = [];
+                const getGameLeadersPop = await getGameLeaders((sessionStorage.userID), sessionStorage.PIN, sessionStorage.OTP, sessionStorage.gameID, "2017-01-01 00:00:00", "2019-01-01 00:00:00", "Toffeemint_Poptest", true);
+                //getGameLeaders(sessionStorage.userID, sessionStorage.PIN, sessionStorage.OTP, sessionStorage.gameID, "2019-01-01 00:00:00", "Posttest", false, function(callback) {
+                var poptestArr = getGameLeadersPop;
+                //});
+                popmainArr = poptestArr['Content']['ServiceResponse']['LeaderDetails']['Leaders']['Leader'] //main
+                    console.log(popmainArr);
+//                    console.log(popmainArr.length);
+                var tableHead = ' <table class="table"><thead class " table-striped b-t b-light"><tr><th>Rank</th><th>Team Name</th><th>Score</th></tr></thead><tbody>';
+                var row = "";
+                
+                if(popmainArr.constructor != Array){
+                    console.log(popmainArr['user_Id']);
+                    var r = "<tr>";
+                    r += "<td>1</td>";
+                    r += "<td>" + popmainArr['user_Id'] + "</td>";
+                    r += "<td>" + popmainArr['score'] + "</td>";
+                    r += "</tr>";
+                    row += r;                    
+                    
+                }else{
+                    for (i = 0; i < popmainArr.length; i++) {
+                        console.log(popmainArr[i]['user_Id']);
+                        var rank = i + 1
+                        var r = "<tr>";
+                        r += "<td>" + rank + "</td>";
+                        r += "<td>" + popmainArr[i]['user_Id'] + "</td>";
+                        r += "<td>" + popmainArr[i]['score'] + "</td>";
+                        r += "</tr>";
+                        row += r;
+                    }            
+                }
+                
+
+                var tableFoot = '</tbody></table>';
+                var table = tableHead + row + tableFoot;
+                $('#table1').append(table);
+
+                return parrScore;
+
+            }
+        </script>
+    </section>
+    <!--End of Scrollable-->
+</section>
+<!--End of vbox-->
+
+
+<!--<script src="../assets/js/applyLc.js"></script>
+<script src="../assets/js/retrieveRefNumList.js"></script>
+<script src="../assets/js/applyLcBc.js"></script>-->
+<!-- <script src="../assets/js/Utility/globalFunctions.js"></script>
+<script src="../assets/js/DAO/apiUrl.js"></script>
+<script src="../assets/js/DAO/lcHandling.js"></script>
+<script src="../assets/js/DAO/statusHandling.js"></script>
+<script src="../assets/js/Utility/formValidation.js"></script>
+<script src="../assets/js/Utility/lcOperations.js"></script>
+<script src="../assets/js/Utility/taskButtonAllocation.js"></script> -->

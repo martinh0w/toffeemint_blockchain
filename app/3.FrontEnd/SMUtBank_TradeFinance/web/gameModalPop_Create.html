@@ -1,0 +1,106 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h4 class="js-title-step"></h4>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <section class="panel panel-default">
+                    <div id="target_create" class="modal-body" style="word-wrap: break-word;">
+                        <div class="row hide" data-step="1" data-title="Pop-Quiz (Please read this section before attempting the timed quizzes.)">
+
+                            <div class="list-group no-radius alt">
+                                <div class="list-group-item">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <h4>
+                                                <strong>Creating a Letter of Credit</br>
+                                                </strong>
+                                                
+                                            </h4>
+                                        </div>
+                                        <div class="panel-body">
+                                            <p>In a trade finance process, importers and exporters first agree on a trade contract on a shipment of goods. 
+                                                </br></br>
+                                                Once a deal has been reached, the Importer will establish a line of credit with his bank to finance this transaction, commonly referred to as a Letter of Credit (LC) .
+                                            </p>
+                                            </br>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <h4>
+                                                <strong>What is a Letter of Credit?</br>
+                                                </strong>
+                                            </h4>
+                                        </div>
+                                        <div class="panel-body">
+                                            <p>A letter of credit is a contract issued by a bank to another bank (especially
+                                                one in a different country) to serve as a guarantee for payments made to
+                                                a specified person under specified conditions.</p>
+                                            </br>
+                                        </div>
+                                    </div>
+
+                                    <div class="panel panel-warning">
+                                        <div class="panel-heading">
+                                            <h4>
+                                                <strong>Introduction to the Blockchain</br>
+                                                </strong>
+                                            </h4>
+                                        </div>
+                                        <div class="panel-body">
+                                            <p>The Blockchain allows for all smart contracts to be created, updated and modified,
+                                                by all parties on the distributed ledger (think of it as a Google Docs, for
+                                                financial contracts). The Smart Contracts on the network will then be validated
+                                                and enforced by the Blockchain. The trade finance system that you are using
+                                                right now, is based on the Ethereum Blockchain, and all Letters of Credit
+                                                on the chain are facilitated through Smart Contracts. </p>
+                                            </br>
+                                        </div>
+                                    </div>
+
+                                    <div class="panel panel-warning">
+                                        <div class="panel-heading">
+                                            <h4>
+                                                <strong>Disruptive Technology</br>
+                                                </strong>
+                                            </h4>
+                                        </div>
+                                        <div class="panel-body">
+                                            <p>As disruptive technological advancements such as the blockchain start to take, it becomes increasingly important that incumbent players in the financial industry keep their enterprise architecture agile. With an SOA architecture, as discussed in the last lesson.</p>
+                                            </br>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <script>
+                            //$(document).ready(function() {
+                            console.log(sessionStorage.userID.substr(8));
+
+                            var chosenQuestions = [99, 110, 100];
+                            var pagesBeforeQuiz = 1;
+                            var answerCounter = 0;
+                            var timer = new Timer();
+                            popQuiz(chosenQuestions, pagesBeforeQuiz, "target_create");
+                            //});
+                        </script>
+
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <!--<button type="button" class="btn btn-default js-btn-step pull-left" data-orientation="cancel" data-dismiss="modal"></button> -->
+            <!--<button type="button" class="btn btn-warning js-btn-step" data-orientation="previous"></button> -->
+            <button type="button" class="btn btn-primary js-btn-step" data-orientation="next" onclick='onNextPop(answerCounter++, pagesBeforeQuiz, chosenQuestions, timer)'></button>
+            <!---->
+        </div>
+
+    </div>
+</div>

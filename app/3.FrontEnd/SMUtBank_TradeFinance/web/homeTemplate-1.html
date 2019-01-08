@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<head>
+    <link rel="stylesheet" href="../assets/css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="../assets/css/animate.css" type="text/css" />
+    <link rel="stylesheet" href="../assets/css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="../assets/css/font.css" type="text/css" />
+    <link rel="stylesheet" href="../assets/css/app.css" type="text/css" />
+    <link rel="stylesheet" href="../assets/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/js/datatable/css/datatable-bootstrap.min.css" media="screen">
+
+    <!--<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>-->
+</head>
+<section class="vbox">
+    <section class="scrollable">
+
+        <div class="wrapper-lg" id="welcomeDetails">
+            <h2 class="m-b-xs font-bold m-t-none" id="username"></h2>
+            <h4 class="text-primary font-bold" id="usertype"></h4>
+        </div>
+        <!--LC Table-->
+        <section class="panel panel-default">
+            <header class="panel-heading">
+                <h4 class="font-bold">Letter of Credit</h4>
+            </header>
+
+
+            <div class="table-responsive" id="first-datatable-output">
+                <table class="table table-striped b-t b-light" id="lcTable">
+                    <thead>
+                        <tr>
+                            <th>Reference Number</th>
+                            <th id="roleTh"></th>
+                            <th>Expiry Date</th>
+                            <th>Status</th>
+                            <th>Operation</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="latestLCs">
+
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+        <!--End of LC Table-->
+        <div id='paging-first-datatable' class='dataTables_paginate paging_full_numbers'></div>
+
+    </section>
+    <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen, open" data-target="#nav,html"></a>
+</section>
+<aside class="bg-light lter b-l aside-md hide" id="notes">
+    <div class="wrapper">Notification</div>
+</aside>
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="lcDetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+</div>
+<!-- error modal
+    ======================================== -->
+<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h2>Error</h2>
+            </div>
+            <div class="modal-body">
+                <p id="errorInfo" class="font-bold h3 font-bold m-t text-danger">
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button id="CloseError" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- success modal
+                    ======================================== -->
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <h2>Success</h2>
+            </div>
+            <div class="modal-body">
+                <p id="successMsg" class="font-bold h3 font-bold m-t text-primary">
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- zoom in modal
+                    ======================================== -->
+<div class="modal fade" id="qrZoomModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <center>
+                    <div class='form-group lc-form' id="qrcodeZoom" style=></div>
+                </center>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- loading modal
+                    ======================================== -->
+<div class="modal fade" id="loadingModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!--<div class="modal-header bg-warning">
+                <h2>Submitting Letter of Credit...</h2>
+            </div>-->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col">
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col" style="text-align: center;">
+                        <p class="font-bold h3 font-bold m-t text-primary">
+                            <i class="fa fa-spinner fa fa-spin fa fa-4x"></i>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        protectUser(); // calling from userHandling
+        var getUserItem = sessionStorage.getItem('user');
+        var user = $.parseJSON(getUserItem);
+        //console.log(user.customerID);
+        $('#username').html("Welcome back, " + user.userID);
+        var usertype = user.usertype;
+        $('#usertype').html(convertToDisplay(usertype, " ") + " (Customer ID - " + user.customerID + ")");
+        var colHeader = "Importer";
+        if (usertype === "importer") {
+            colHeader = "Exporter";
+        }
+        $('#roleTh').html(colHeader + " account");
+        $("#lcDetailsModal").load("../lcDetailsModal.html");
+
+        homeOperation(); //calling this method from assets/js/Utility/lcOperations.js
+        loadLcDetailsModal(); //this method is called from lcOperation.js
+
+    });
+</script>
+<script src="../assets/js/app.js"></script>
+<script src="../assets/js/slimscroll/jquery.slimscroll.min.js"></script>
+
+
+
+<script type="text/javascript" src="../assets/js/datepicker/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js" charset="UTF-8"></script>
+<!-- data table js files -->
+<script type="text/javascript" src="../assets/js/datatable/js/datatable.jquery.min.js"></script>
+<script>
+    //once page button clicked, the user is redirected to importer/exporter.html, together with a html page name for loading (stored in a session)
+
+
+
+    $(".pagesButton").click(function() {
+        var page = $(this).attr('id');
+        var pageToLoad = {
+            page: page
+        };
+        sessionStorage.setItem('page', JSON.stringify(pageToLoad));
+        window.location.replace("/SMUtBank_TradeFinance/" + sessionStorage.usertype + "/" + sessionStorage.usertype + ".html");
+    });
+</script>

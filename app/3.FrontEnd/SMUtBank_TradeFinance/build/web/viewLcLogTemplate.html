@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+
+<section class="vbox">
+    <section class="scrollable">
+
+        <div class="wrapper-lg">
+            <h2 class="m-b-xs font-bold m-t-none">View LC Log</h2>
+
+        </div>
+        <!--LC Table-->
+        <section class="panel panel-default">
+            <header class="panel-heading">
+                <h4 class="font-bold">All LC</h4>
+            </header>
+
+            <div class="table-responsive">
+                <table class="table table-striped b-t b-light" id="lcTable">
+                    <thead>
+                        <tr>
+                            <th>Reference Number</th>
+                            <th>Exporter</th>
+                            <th>Expiry Date</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="latestLCs">
+                        
+                    </tbody>
+                </table>
+            </div>
+            <footer class="panel-footer">
+                <div class="row">
+
+                    <div class="col-sm-4 text-left">
+                        <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
+                    </div>
+                    <div class="col-sm-4 text-center text-center-xs">
+                        <ul class="pagination pagination-sm m-t-none m-b-none">
+                            <li><a href="#"><i class="fa fa-chevron-left"></i></a></li>
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li><a href="#"><i class="fa fa-chevron-right"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-4 hidden-xs">
+
+
+                    </div>
+                </div>
+            </footer>
+        </section>
+        <!--End of LC Table-->
+
+
+    </section>
+    <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen, open" data-target="#nav,html"></a>
+</section>
+<aside class="bg-light lter b-l aside-md hide" id="notes">
+    <div class="wrapper">Notification</div>
+</aside>

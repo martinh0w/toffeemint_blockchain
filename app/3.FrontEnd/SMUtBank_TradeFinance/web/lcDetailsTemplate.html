@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+
+<script src="../assets/js/Utility/globalFunctions.js"></script>
+<script src="../assets/js/DAO/apiUrl.js"></script>
+<script src="../assets/js/DAO/lcHandling.js"></script>
+<script src="../assets/js/DAO/statusHandling.js"></script>
+<script src="../assets/js/Utility/lcOperations.js"></script>
+<script src="../assets/js/Utility/taskButtonAllocation.js"></script>
+<script>
+    
+    lcDetailsOperation();//this method is called from utility/lcOperations.js
+ 
+</script>
+<section class="vbox">
+    <section class="scrollable">
+        <div class="wrapper-lg">
+            <h2 class="m-b-xs font-bold m-t-none">LC details</h2>
+        </div>
+
+        <section class="panel panel-default">
+            <header class="panel-heading font-bold">
+                <div class="bs-example form-horizontal">
+                    <div class="form-group lc-form">
+                        <label class="col-sm-2 control-label lc-label">Ref Num </label>
+                        <div class="col-sm-2 lc-value">
+                            <p id="refNum"></p>
+                        </div>
+                        <label class="col-sm-2 control-label">Status </label>
+                        <div class="col-sm-2 lc-value">
+                            <p id="status"></p>
+                        </div>
+                        <label class="col-sm-2 control-label">Date Submitted</label>
+                        <div class="col-sm-2 lc-value">
+                            <p id="dateSubmitted" class="lc-value"></p>
+                        </div>
+                    </div>
+                </div>
+
+            </header>
+            <div class="panel-body">
+                <div class="bs-example form-horizontal" id="lcDetails">
+
+                </div>
+                <div class="bs-example form-horizontal" id="lcButtons">
+
+                </div>
+            </div>
+
+        </section>
+
+
+    </section>
+    <!--End of Scrollable-->
+</section>
+<!--End of vbox-->
+

@@ -1,0 +1,95 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h4 class="js-title-step"></h4>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <section class="panel panel-default">
+                    <div id="target_amend" class="modal-body" style="word-wrap: break-word;">
+                        <div class="row hide" data-step="1" data-title="Pop-Quiz">
+
+                            <div class="list-group no-radius alt">
+                                <div class="list-group-item">
+
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <h4>
+                                                <strong>Amendments Request</br>
+                                                </strong>
+                                            </h4>
+                                        </div>
+                                        <div class="panel-body">
+                                            <p>As with a regular trade finance process, all parties to the contract will have to approve the transaction before it is executed. 
+                                            </p>
+                                            </br>
+                                            <p>With Smart Contracts, banks could automate their approval process, allowing for a more seemless negotiation process between the Importer, and exporter.</p>
+                                            </br>
+
+                                            <p>Here, you (an Exporter) are requesting for an amendment to the LC, which can legally only be done by the Importer.</p>
+                                            </br>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-warning">
+                                        <div class="panel-heading">
+                                            <h4>
+                                                <strong>What is a Smart Contract?</br>
+                                                </strong>
+                                            </h4>
+                                        </div>
+                                        <div class="panel-body">
+                                            <p>A smart contract is a computer protocol intended to digitally facilitate, verify, or enforce the negotiation or performance of a contract. Smart contracts allow the performance of credible transactions without third parties. These transactions are trackable and irreversible. Smart contracts were first proposed by Nick Szabo, who coined the term, in 1994.</p>
+                                            </br>
+                                        </div>
+                                    </div>
+
+                                    <div class="panel panel-warning">
+                                        <div class="panel-heading">
+                                            <h4>
+                                                <strong>Overcoming barriers of entry through Open API</br>
+                                                </strong>
+                                            </h4>
+                                        </div>
+                                        <div class="panel-body">
+                                            <p>The strength of an Service-Oriented Architecture would be that the functionality of an existing system can be called, and integrated into newer services, such as ones backed by a blockchain. 
+                                                </br> </br>
+                                                To demonstrate this, the button below will call an exposed service endpoint which will create a new Letter of Credit on a legacy database, put that same Letter of Credit on a blockchain backed smart contract, and return the block that has been mined of this smart contract. 
+                                                </br></br>
+                                                <input class="btn btn-default" type="button" value="Create Contract" onclick="window.open('http://smu.tbankonline.com:9001/lc/createContract?refNum=test&contract=test')">
+                                                </br>
+                                            </p>
+                                            </br>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <script>
+                            //$(document).ready(function() {
+                            var chosenQuestions = [102, 110, 101];
+                            var pagesBeforeQuiz = 1;
+                            var answerCounter = 0;
+                            var timer = new Timer();
+
+                            popQuiz(chosenQuestions, pagesBeforeQuiz, "target_amend");
+                            //});
+                        </script>
+
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <!--<button type="button" class="btn btn-default js-btn-step pull-left" data-orientation="cancel" data-dismiss="modal"></button> -->
+            <!--<button type="button" class="btn btn-warning js-btn-step" data-orientation="previous"></button> -->
+            <button type="button" class="btn btn-primary js-btn-step" data-orientation="next" onclick='onNextPop(answerCounter++, pagesBeforeQuiz, chosenQuestions, timer)'></button>
+            <!---->
+        </div>
+
+    </div>
+</div>

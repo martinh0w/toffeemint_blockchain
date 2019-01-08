@@ -1,0 +1,14 @@
+1,Pending,View Lc,View Lc,View Lc,View Lc
+2,Issued,View Lc,View Lc,View Lc,View Lc
+3,Rejected,Modify Lc,View Lc,View Lc,View Lc
+4,Advised,View Lc,Approve LC,View Lc,View Lc
+5,Acknowledged,view lc,Ship Goods?,view lc,view lc
+6,Requested to amend,Modify Lc,view lc,view lc,view lc
+7,Shipped to carrier,View Lc,View Lc,View Lc,View Lc
+8,Document Uploaded,View Lc,Request Banker's Guarantee,View Lc,View Lc
+9,BG Requested,View Lc,View Lc,Issuing docs?,View Lc
+10,Document Issued,View Lc,View Lc,Advise payment,View Lc
+11,Payment Advised,Accept documents,View Lc,View Lc,View Lc
+12,Document accepted,Verify BOL?,View Lc,View Lc,View Lc
+13,BOL verified,Collect item,View Lc,View Lc,View Lc
+14,Item Collected,View Lc,View Lc,View Lc,View Lc

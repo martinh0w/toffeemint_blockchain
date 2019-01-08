@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+
+
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        /* Center the loader */
+        
+        #loader {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            z-index: 1;
+            width: 150px;
+            height: 150px;
+            margin: -75px 0 0 -75px;
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            width: 120px;
+            height: 120px;
+            -webkit-animation: spin 2s linear infinite;
+            animation: spin 2s linear infinite;
+        }
+        
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+        
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+        /* Add animation to "page content" */
+        
+        .animate-bottom {
+            position: relative;
+            -webkit-animation-name: animatebottom;
+            -webkit-animation-duration: 1s;
+            animation-name: animatebottom;
+            animation-duration: 1s
+        }
+        
+        @-webkit-keyframes animatebottom {
+            from {
+                bottom: -100px;
+                opacity: 0
+            }
+            to {
+                bottom: 0px;
+                opacity: 1
+            }
+        }
+        
+        @keyframes animatebottom {
+            from {
+                bottom: -100px;
+                opacity: 0
+            }
+            to {
+                bottom: 0;
+                opacity: 1
+            }
+        }
+        
+        #myDiv {
+            display: none;
+            text-align: center;
+        }
+    </style>
+</head>
+
+
+<body onload="myFunction()" style="margin:0;">
+
+    <button id="button1">Get customer details</button>
+    <button id="button2">Get customer accounts</button>
+    <button id="button3">Get all types</button>
+    <button id="button4">Get all types</button>
+    <button id="button5">Get ref num list</button>
+    <button id="button6">Get game question</button>
+    <button id="button7">Get game answer</button>
+    <button id="button8">Set question score</button>
+    <button id="button9">Get game score</button>
+    <button id="button10">Get game leaders</button>
+    <button id="button11">update Status</button>
+    <button id="button12">get amendments</button>
+    <button id="button13">uploadBOL</button>
+    <button id="button14">update status</button>
+    <button id="button15">get bol links</button>
+    <button id="button16">get qr code</button>
+    <button id="button17">leaders</button>
+    <button id="button18">Get created contract</button>
+    <button id="button19">Shipper URL</button>
+    <button id="button20">Test async amend lc</button>
+    <button id="button21">Timer - purely retrieving</button>
+    <button id="button22">Timer</button>
+    <button id="button23">Shipper Data</button>
+    <button id="button24">All shipper parallel</button>
+    <div id="content"></div>
+    <pre id="json"></pre>
+    <!--<div id="nav">
+        </div>
+        <div id="content"></div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="assets/js/pageLoad.js"></script>
+         <script>
+             $('#nav').load("nav.html");
+        </script>-->
+
+
+
+    <!--<input id="text" type="text" value="http://jindo.dev.naver.com/collie" style="width:80%" /><br />-->
+    <div id="qrcode" style="width:100px; height:100px; margin-top:15px;"></div>
+
+
+
+    <div id="loader"></div>
+
+    <div style="display:none;" id="myDiv" class="animate-bottom">
+        <h2>Tada!</h2>
+        <p>Some text in my newly loaded page..</p>
+    </div>
+
+    <script>
+        var myVar;
+
+        function myFunction() {
+            myVar = setTimeout(showPage, 3000);
+        }
+
+        function showPage() {
+            document.getElementById("loader").style.display = "none";
+            document.getElementById("myDiv").style.display = "block";
+        }
+    </script>
+
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="assets/js/Utility/globalFunctions.js"></script>
+    <script src="assets/js/DAO/apiUrl.js"></script>
+    <script src="assets/js/DAO/docsHandling.js"></script>
+    <script src="assets/js/DAO/lcHandling.js"></script>
+
+    <script src="assets/js/Utility/formValidation.js"></script>
+    <script src="assets/js/DAO/userHandling.js"></script>
+    <script src="assets/js/DAO/statusHandling.js"></script>
+    <script src="assets/js/DAO/gameHandling.js"></script>
+    <script src="assets/js/DAO/notificationHandling.js"></script>
+    <script src="assets/js/qrcode/qrcode.js"></script>
+    <script src="assets/js/Utility/lcOperations.js"></script>
+    <script>
+        $("#button1").click(function() {
+            var account
+            getCustomerAccounts("toffeemint4", "123456", "999999", function(accounts) { //get currency and importer account
+
+                account = accounts.Content.ServiceResponse.AccountList.account[0];
+                if (account == null) {
+                    account = accounts.Content.ServiceResponse.AccountList.account;
+                }
+                //console.log(account);
+
+            });
+
+        });
+
+        $("#button2").click(function() {
+            var account;
+            getCustomerDeatils("toffeemint4", "123456", "999999", function(accounts) { //get currency and importer account
+
+
+                console.log(account);
+
+            });
+
+        });
+
+        $("#button4").click(function() { //
+
+            ////console.log(getRefNumListAjax());
+            //var numList = getRefNumListAjax();
+
+
+            var refNum;
+            getRefNumListAjax(function(refNumList) {
+                refNum = refNumList.RefNumList.RefNum;
+            });
+            //console.log(refNum[0]);
+
+        });
+
+        $("#button5").click(function() { //
+
+            ////console.log(getRefNumListAjax());
+            //var numList = getRefNumListAjax();
+
+
+            ////console.log(getRefNumList("kinetic1", refNumList));
+
+            var userId = "toffeemint1";
+            var PIN = "929780";
+            var OTP = "999999";
+
+
+            var refNum;
+            getCustomerDeatils(userId, PIN, OTP, function(data) {
+                //console.log(data);
+            });
+
+
+
+        });
+
+        //game test
+        $("#button6").click(function() {
+            getGameQuestion("", "", "", 1, function(callback) {
+                //console.log(callback);
+            });
+        });
+
+        $("#button7").click(function() {
+            getGameAnswer("", "", "", 1, function(callback) {
+                //console.log(callback);
+            });
+        });
+
+        $("#button8").click(function() {
+            setQuestionScore("kinetic1", "123456", "999999", 2, 103, 10, "Pretest", 1, function(callback) {
+                console.log(callback);
+            });
+        });
+
+        $("#button9").click(function() {
+            getGameScore("toffeemint4", "123456", "999999", 104, "2017-01-01 00:00:00", "2019-01-01 00:00:00", "Pretest", function(callback) {
+                console.log(callback);
+            });
+        });
+
+        $("#button10").click(function() {
+            getLcDetails("toffeemint2", "123456", "999999", "0000001121", function(contract) {
+                //console.log(contract);
+
+                var globalErrorId = contract.Content.ServiceResponse.ServiceRespHeader.GlobalErrorID;
+                //console.log(globalErrorId);
+                if (globalErrorId === "010000") {
+                    exporterAcct = contract.Content.ServiceResponse.LC_Details.LC_record.exporter_account_num;
+                    //console.log(exporterAcct);
+                    expiryDate = contract.Content.ServiceResponse.LC_Details.LC_record.expiry_date;
+                    //console.log(expiryDate);
+                    status = contract.Content.ServiceResponse.LC_Details.LC_record.status;
+                    //console.log(status);
+                    lc = contract.Content.ServiceResponse.LC_Details.LC_record;
+                    //console.log(lc);
+
+                }
+            });
+        });
+
+        $("#button11").click(function() {
+            modifyLc("toffeemint2", "123456", "999999", "0000001121", function(data) {
+                //console.log(data);
+
+
+            });
+        });
+        $("#button12").click(function() {
+            getLcAmendments("toffeemint2", "123456", "999999", "0000001133", function(amendments) {
+                //console.log(amendments);
+            });
+        });
+
+        $("#button13").click(function() {
+            uploadBOL("kinetic1", "123456", "999999", "0000001081", "http://bit.ly/2BPThUM", function(data) {
+                //console.log(data);
+            });
+        });
+        $("#button14").click(function() {
+
+            doAsyncUpdates();
+        });
+
+
+        async function doAsyncUpdates() {
+            const updates = await updateStatus("toffeemint2", "123456", "999999", "0000001808", "acknowledged", "");
+            console.log(updates);
+        }
+
+        $("#button15").click(function() {
+            getBOLUrl("toffeemint2", "123456", "999999", "0000001195", function(data) {
+                //console.log(data);
+            });
+        });
+        $("#button16").click(function() {
+            getQRCode(100, 100, 'http://bit.ly/2BPThUM', function(data) {
+                console.log(data)
+            });
+        });
+
+        $("#button17").click(function() {
+            //getGameLeaders("kinetic1", "123456", "999999", 104, "2017-01-01 00:00:00", "2019-01-01 00:00:00", "Posttest", false, function(callback) {
+            //  console.log(callback)
+            //});
+            getGameData();
+        });
+        async function getGameData() {
+            const leaders = getGameLeaders("kinetic1", "123456", "999999", 104, "2017-01-01 00:00:00", "2019-01-01 00:00:00", "Posttest", false);
+            console.log(leaders);
+        }
+        $("#button18").click(function() {
+            var bcReceipt = ""
+            getBlockchainReceipt("kinetic1", "123456", "999999", "0000001450", function(data) {
+                if (data !== null) {
+                    bcReceipt = data[0][1]
+                }
+            });
+            if (bcReceipt !== "") {
+                bcReceipt = JSON.parse(bcReceipt);
+                $("#json").html(JSON.stringify(bcReceipt, undefined, 2));
+                //$("#content").html(bcReceipt);
+            }
+        });
+
+        $("#button19").click(function() {
+            doAsyncOp();
+        });
+
+        async function doAsyncOp() {
+            const homepageD = await getBOLUrl("toffeemintadmin", "123456", "999999", "0000002016");
+            //var dataObj = JSON.parse(homepageD);
+            console.log(homepageD);
+
+
+        };
+
+        $("#button20").click(function() {
+            doAsyncAm();
+        });
+
+        async function doAsyncAm() {
+
+
+            const amendments = await getLcAmendments("toffeemint2", "123456", "999999", "0000001807");
+            console.log(amendments);
+
+
+        };
+
+        $("#button21").click(function() {
+            processData();
+        });
+        async function processData() {
+            const data = await getData();
+            console.log(data);
+        }
+        $("#button22").click(function() {
+            processHData();
+
+        });
+        async function processHData() {
+            const data = await getHomepageData();
+            console.log(data);
+        }
+        $("#button23").click(function() {
+            processShipperData();
+        });
+        async function processShipperData() {
+            const data = await getBlockchainReceiptHash("toffeemint2", "123456", "999999", "0000001900");
+            console.log(data);
+        }
+
+        $("#button24").click(function() {
+            processLcData();
+        });
+        async function processLcData() {
+            const data = await getAllLcDetailsShipper("toffeemint2", "123456", "999999");
+            console.log(data);
+        }
+    </script>
+
+
+</body>
+
+</html>

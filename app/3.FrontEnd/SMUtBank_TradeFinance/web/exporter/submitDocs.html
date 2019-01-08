@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<head>
+    <link rel="stylesheet" href="../assets/css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="../assets/css/animate.css" type="text/css" />
+    <link rel="stylesheet" href="../assets/css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="../assets/css/font.css" type="text/css" />
+    <link rel="stylesheet" href="../assets/css/app.css" type="text/css" />
+</head>
+
+<section class="vbox">
+    <section class="scrollable">
+        <div class="wrapper-lg">
+            <h2 class="m-b-xs font-bold m-t-none">Upload Cert of Origin & Insurance</h2>
+        </div>
+        <form id="amendLcForm" class="padder">
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <section class="panel panel-default">
+                        <header class="panel-heading">
+                            <span class="h4">Contract Info</span>
+                        </header>
+                        <div class="panel-body">
+
+                            <div class="form-group">
+                                <label>Goods Description</label>
+                                <input id="goodsDescription" type="text" class="form-control goodsDesc" name="goodsDescription" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Ship Period</label>
+                                <input id="shipPeriod" type="text" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Amount</label>
+                                <input id="amount" type="text" class="form-control" data-type="digits" readonly>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="expiryDate">Ship Date</label>
+                                <input type='text' class="form-control form_date" id='expiryDate' data-date="" data-date-format="yyyy-mm-dd" data-link-field="expiryDate" data-link-format="yyyy-mm-dd" name="expiryDate" readonly/>
+                            </div>
+
+
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <section class="panel panel-default">
+                        <header class="panel-heading">
+                            <span class="h4">Documents</span>
+                        </header>
+                        <div class="panel-body">
+                            <div class="form-group" id="bolLink">
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="filePicker">Cert of Origin</label>
+                                <input type="file" class="form-control" id="filePicker" class="btn btn-primary" name="filePicker" onchange='readImage("filePicker","base64textarea")'>
+                            </div>
+                            <div class="form-group">
+                                <label for="filePicker2">Cert of Insurance</label>
+                                <input type="file" class="form-control" id="filePicker2" class="btn btn-primary" name="filePicker2" onchange='readImage("filePicker2","base64textarea2")'>
+                            </div>
+
+                            <div></div>
+                            <div id="authError"></div>
+                            <footer class="text-center bg-light lter">
+                                <div class='form-group lc-form'>
+                                    <input type="hidden" class="form-control" id="base64textarea" />
+                                    <input type="hidden" class="form-control" id="base64textarea2" />
+                                    <div class='col-lg-4 ' style='' id='actionDiv'><button type='button' class='actionButton btn btn-primary btn-lg' id="uploadDocsExporterButton">Upload</button></div>
+                                    <div class='col-lg-4 ' style='' id='actionDiv'><button type='button' class='actionButton btn btn-default btn-lg' id='cancelButton'>Cancel</button></div>
+                                </div>
+                            </footer>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+        </form>
+
+
+    </section>
+    <!--End of Scrollable-->
+</section>
+<!--End of vbox-->
+
+<!-- error modal
+    ======================================== -->
+<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h2>Error</h2>
+            </div>
+            <div class="modal-body">
+                <p id="errorInfo" class="font-bold h3 font-bold m-t text-danger">
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button id="CloseError" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- success modal
+            ======================================== -->
+<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <h2>Success</h2>
+            </div>
+            <div class="modal-body">
+                <p id="successMsg" class="font-bold h3 font-bold m-t text-primary">
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- loading modal
+            ======================================== -->
+<div class="modal fade" id="loadingModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-warning">
+                <h2>Uploading Document...</h2>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col">
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col" style="text-align: center;">
+                        <p id="elapsedTime">
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../assets/js/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="../assets/js/bootstrap.js"></script>
+<!-- App -->
+<script src="../assets/js/app.js"></script>
+<script src="../assets/js/slimscroll/jquery.slimscroll.min.js"></script>
+
+<script type="text/javascript" src="../assets/js/datepicker/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js" charset="UTF-8"></script>
+
+
+
+<script type="text/javascript">
+    var timer = "";
+    var startTime = new Date().getTime();
+    $(document).ready(function() {
+        uploadBol(); // calling this function from documentsOperation.js
+    })
+</script>

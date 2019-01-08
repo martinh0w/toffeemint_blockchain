@@ -1,0 +1,70 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="js-title-step"></h4>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <section class="panel panel-default">
+                    <div id="target_modify" class="modal-body" style="word-wrap: break-word;">
+                        <div class="row hide" data-step="1" data-title="Pop-Quiz">
+
+                            <div class="list-group no-radius alt">
+                                <div class="list-group-item">
+
+
+
+                                    <div class="panel panel-warning">
+                                        <div class="panel-heading">
+                                            <h4>
+                                                <strong>Verification on the Blockchian.</br>
+                                                </strong>
+                                            </h4>
+                                        </div>
+                                        <div class="panel-body">
+                                            <p>For each transaction, modification or update that happens on the blockchain, a new "block" would be created on the chain, which would then be verified across the network; and in doing so, produce a transaction hash. This new block be sync'd to all parties on the network, allowing everyone to have an updated copy of the contract. 
+                                                </br>
+                                                All parties can hence be confident that the contract that they are reading on the blockchain is fully verified, and up-to-date. 
+                                                </br>
+                                                </br>
+                                                <input class="btn btn-default" type="button" value="Create Contract" onclick="window.open('http://smu.tbankonline.com:9001/lc/createContract?refNum=test&contract=test')">
+                                                </br>
+
+                                                </br>
+                                                <input class="btn btn-default" type="button" value="Update Contract" onclick="window.open('http://smu.tbankonline.com:9001/lc/modifyContract?refNum=test&contract=updated!')">
+                                                </br>
+                                                </br>
+                                                Notice that a new transaction hash is created each time the button is pressed, and the Block Height increments upwards, as new blocks are added to the chain. 
+                                            </p>
+                                            </br>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <script>
+                            //$(document).ready(function() {
+                            var chosenQuestions = [105, 110];
+                            var pagesBeforeQuiz = 1;
+                            var answerCounter = 0;
+                            var timer = new Timer();
+
+                            popQuiz(chosenQuestions, pagesBeforeQuiz, "target_modify");
+                            //});
+                        </script>
+
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <!--<button type="button" class="btn btn-default js-btn-step pull-left" data-orientation="cancel" data-dismiss="modal"></button> -->
+            <!--<button type="button" class="btn btn-warning js-btn-step" data-orientation="previous"></button> -->
+            <button type="button" class="btn btn-primary js-btn-step" data-orientation="next" onclick='onNextPop(answerCounter++, pagesBeforeQuiz, chosenQuestions, timer)'></button>
+            <!---->
+        </div>
+
+    </div>
+</div>

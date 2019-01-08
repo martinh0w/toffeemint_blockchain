@@ -1,0 +1,100 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h4 class="js-title-step"></h4>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <section class="panel panel-default">
+                    <div id="target_upload" class="modal-body" style="word-wrap: break-word;">
+                        <div class="row hide" data-step="1" data-title="Pop-Quiz">
+
+                            <div class="list-group no-radius alt">
+                                <div class="list-group-item">
+
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <h4>
+                                                <strong>Shipment of Goods</br>
+                                                </strong>
+                                            </h4>
+                                        </div>
+                                        <div class="panel-body">
+                                            <p>In a traditional Trade Finance Process, the exporter will have to prepare the
+                                                following documents for presentation to his bank:
+                                                <ol>
+                                                    <li>Invoice for payment</li>
+                                                    <li>Commercial documents at port of origin (Packing list, Cert of inspection/origin,
+                                                        Insurance)
+                                                    </li>
+                                                    <li>Transport documents (Airway Bill, Bill of Lading, Rail/Road Consignment
+                                                        note)</li>
+                                                    <li>Financial documents (Bill of Exchange, Promissory note, Letters of Credit)</li>
+                                                </ol>
+                                            </p>
+                                            </br>
+                                            <p>However, with the advent of blockchain technology, transport documents, and other
+                                                commercial documents will be uploaded to, and verified by the blockchain
+                                                without the need for a traditional document presentation process. Upon sending
+                                                the goods for shipment, the Shipper upload to the Blockchain, the Bill of
+                                                Lading.
+                                            </p>
+                                            </br>
+                                            </br>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <h4>
+                                                <strong>What is a Bill of Lading ?</br>
+                                                </strong>
+                                            </h4>
+                                        </div>
+                                        <div class="panel-body">
+                                            <p>A document issued by a carrier to a shipper of goods. It is a negotiable instrument,
+                                                and it serves three purposes:
+                                                <ol>
+                                                    <li>it is a receipt for the goods shipped; </li>
+                                                    <li>it evidences the contract of carriage; and </li>
+                                                    <li>it serves as a document of title (i.e. ownership).</li>
+                                                </ol>
+                                            </p>
+
+                                           
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <script>
+                            //$(document).ready(function() {
+                            var chosenQuestions = [104];
+                            var pagesBeforeQuiz = 1;
+                            var answerCounter = 0;
+                            var timer = new Timer();
+
+                            popQuiz(chosenQuestions, pagesBeforeQuiz, "target_upload");
+                            //});
+                        </script>
+
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <!--<button type="button" class="btn btn-default js-btn-step pull-left" data-orientation="cancel" data-dismiss="modal"></button> -->
+            <!--<button type="button" class="btn btn-warning js-btn-step" data-orientation="previous"></button> -->
+            <button type="button" class="btn btn-primary js-btn-step" data-orientation="next" onclick='onNextPop(answerCounter++, pagesBeforeQuiz, chosenQuestions, timer)'></button>
+            <!---->
+        </div>
+
+    </div>
+</div>

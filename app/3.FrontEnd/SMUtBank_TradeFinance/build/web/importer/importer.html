@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" class="app">
+
+<head>
+    <meta charset="utf-8" />
+    <title>SMU tBank - Trade Finance Application</title>
+
+    <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <link rel="stylesheet" href="../assets/css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="../assets/css/animate.css" type="text/css" />
+    <link rel="stylesheet" href="../assets/css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="../assets/css/font.css" type="text/css" />
+    <link rel="stylesheet" href="../assets/js/calendar/bootstrap_calendar.css" type="text/css" />
+    <link rel="stylesheet" href="../assets/js/jvectormap/jquery-jvectormap-1.2.2.css" type="text/css" />
+    <link rel="stylesheet" href="../assets/css/app.css" type="text/css" />
+    <link rel="stylesheet" href="../assets/js/select2/select2.css" type="text/css" />
+    <link rel="stylesheet" href="../assets/js/select2/theme.css" type="text/css" />
+    <!--[if lt IE 9]>
+        <script src="../assets/js/ie/html5shiv.js"></script>
+        <script src="../assets/js/ie/respond.min.js"></script>
+        <script src="../assets/js/ie/excanvas.js"></script>
+      <![endif]-->
+    <script src="../assets/js/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="../assets/js/bootstrap.js"></script>
+</head>
+
+<body class="">
+    <div class="modal fade" id="postQuizModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+    <button id="modal" style="display:none" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#preQuizModal" data-backdrop="static" data-keyboard="false"></button>
+    <div class="modal fade" id="preQuizModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+<!--    <div class="modal fade" id="postQuizModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="max-width: 700px; overflow-wrap: break-word;word-wrap: break-word;"></div>
+    <button id="modal" style="display:none" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"></button>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="max-width: 700px; overflow-wrap: break-word;word-wrap: break-word;"></div>-->
+
+    <!--OTP modal-->
+    <div class="modal fade" id="showOTPModal" tabindex="-1" role="dialog" aria-hidden="true"></div>
+
+    <section class="vbox">
+        <!--Header-->
+        <header class="bg-black dk header navbar navbar-fixed-top-xs" id="header">
+        </header>
+        <!--End of Header-->
+        <section>
+            <section class="hbox stretch">
+                <!-- .aside -->
+                <aside class="bg-dark lter aside-md hidden-print hidden-xs" id="nav-bar">
+
+                </aside>
+                <!-- /.aside -->
+                <!--Content-->
+                <section id="content">
+
+
+                </section>
+                <!--End of Content-->
+
+
+            </section>
+            <!--End of hbox stretch -->
+        </section>
+
+    </section>
+    <!--End of Vbox-->
+    <script src="../assets/js/DAO/apiUrl.js"></script>
+    <script src="../assets/js/DAO/userHandling.js"></script>
+    <script src="../assets/js/DAO/lcHandling.js"></script>
+    <script src="../assets/js/DAO/statusHandling.js"></script>
+    <script src="../assets/js/Utility/pageLoad.js"></script>
+    <script src="../assets/js/Utility/globalFunctions.js"></script>
+    <script src="../assets/js/Utility/formValidation.js"></script>
+    <script src="../assets/js/Utility/lcOperations.js"></script>
+    <script src="../assets/js/DAO/notificationHandling.js"></script>
+    <script src="../assets/js/DAO/docsHandling.js"></script>
+    <script src="../assets/js/DAO/gameHandling.js"></script>
+    <script src="../assets/js/Utility/documentsOperation.js"></script>
+    <script src="../assets/js/Utility/login.js"></script>
+    <script src="../assets/js/Utility/logout.js"></script>
+    <script src="../assets/js/qrcode/qrcode.js"></script>
+    <script src="../assets/js/qrcode/qrcode.min.js"></script>
+
+
+    <script>
+        $(document).ready(function() {
+            $("#header").load("../header.html");
+            $('#nav-bar').load("navBar.html");
+            $("#showOTPModal").load("../OTPModal.html");
+
+
+            $('#postQuizModal').load("../gameModalPost.html", function() {
+                $('#postQuizModal').modalSteps();
+            });
+
+
+            if (sessionStorage.showQuiz == 1) {
+                $("#preQuizModal").load("../gameModalPre.html", function() {
+                    $('#preQuizModal').modalSteps();
+                    jQuery(function() {
+                        jQuery('#modal').click();
+                        sessionStorage.showQuiz = 0;
+                    });
+
+                });
+
+            }
+        });
+    </script>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>-->
+
+
+    <!-- App -->
+    <script src="../assets/js/app.js"></script>
+    <script src="../assets/js/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="../assets/js/charts/easypiechart/jquery.easy-pie-chart.js"></script>
+    <script src="../assets/js/charts/sparkline/jquery.sparkline.min.js"></script>
+    <script src="../assets/js/charts/flot/jquery.flot.min.js"></script>
+    <script src="../assets/js/charts/flot/jquery.flot.tooltip.min.js"></script>
+    <script src="../assets/js/charts/flot/jquery.flot.resize.js"></script>
+    <script src="../assets/js/charts/flot/jquery.flot.grow.js"></script>
+    <script src="../assets/js/charts/flot/demo.js"></script>
+
+    <script src="../assets/js/calendar/bootstrap_calendar.js"></script>
+    <script src="../assets/js/calendar/demo.js"></script>
+
+    <script src="../assets/js/sortable/jquery.sortable.js"></script>
+
+    <script src="../assets/js/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="../assets/js/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+    <script src="../assets/js/jvectormap/demo.js"></script>
+    <script src="../assets/js/app.plugin.js"></script>
+    <!-- file input -->
+    <script src="../assets/js/file-input/bootstrap-filestyle.min.js"></script>
+    <!-- select2 -->
+    <script src="../assets/js/select2/select2.min.js"></script>
+
+    <!-- game modal & timer-->
+    <script src="../assets/js/game/jquery-bootstrap-modal-steps.min.js"></script>
+    <script src="../assets/js/game/easytimer.min.js"></script>
+    <script type="text/javascript" src="../assets/js/datatable/js/datatable.min.js"></script>
+
+</body>
+
+</html>

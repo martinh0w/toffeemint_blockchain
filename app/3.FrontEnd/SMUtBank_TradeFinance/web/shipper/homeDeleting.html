@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+
+<head>
+    <link rel="stylesheet" href="../assets/css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="../assets/css/animate.css" type="text/css" />
+    <link rel="stylesheet" href="../assets/css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="../assets/css/font.css" type="text/css" />
+    <link rel="stylesheet" href="../assets/css/app.css" type="text/css" />
+    <link rel="stylesheet" href="../assets/css/bootstrap-datetimepicker.min.css">
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+</head>
+<script type="text/javascript">
+    //homeOperation(); //calling this method from assets/js/Utility/lcOperations.js
+    var countries = getAllCountries();
+    var $optionCell = $("<option value=''>All</option>");
+    var option = "<option value=''>All</option>";
+    for (var i in countries) {
+        option += "<option value='" + countries[i] + "'>" + countries[i] + "</option>";
+    }
+    $('#country').append(option);
+</script>
+<section class="vbox">
+    <section class="scrollable">
+
+        <div class="wrapper-lg" id="welcomeDetails">
+            <h2 class="m-b-xs font-bold m-t-none" id="username"></h2>
+            <h4 class="text-primary font-bold" id="usertype"></h4>
+        </div>
+        <!--LC Table-->
+        <section class="panel panel-default">
+            <header class="panel-heading">
+                <h4 class="font-bold">Letter of Credit</h4>
+            </header>
+            <header class="panel-heading">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class=" ">
+                            <p class="font-bold">Filter by Country</p>
+                            <div class="btn-default" style="">
+
+                                <div class="">
+                                    <!--get exporter id, account no and name from alan's database-->
+                                    <select id="country" name="country" class="form-control m-b ">
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <script>
+                            //get all ref num
+
+                            ////console.log(filter);
+                        </script>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class=" ">
+                            <p class="font-bold">Filter by Ship Date</p>
+                            <div class="btn-default" style="">
+
+                                <div class="">
+                                    <input type='text' class="form-control form_date" id='shipDate' data-date="" data-date-format="yyyy-mm-dd" data-link-field="shipDate" data-link-format="yyyy-mm-dd" name="shipDate" data-required="true" required/>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="col-sm-4">
+
+
+
+                    </div>
+
+                </div>
+
+            </header>
+
+            <div class="table-responsive">
+                <table class="table table-striped b-t b-light" id="lcTable">
+                    <thead>
+
+                        <tr>
+                            <th>Reference Number</th>
+                            <th>Country</th>
+                            <th>Ship Date</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="latestLCs">
+
+                    </tbody>
+                </table>
+            </div>
+            <footer class="panel-footer">
+                <div class="row">
+                    <div class="col-sm-4 hidden-xs">
+                    </div>
+                    <div class="col-sm-4 text-center">
+                        <a id="viewLcLogTemplate" class="pagesButton btn btn-s-md btn-dark">View All LC</a>
+                    </div>
+                    <div class="col-sm-4 text-right text-center-xs">
+
+                    </div>
+
+                </div>
+            </footer>
+        </section>
+        <!--End of LC Table-->
+
+
+    </section>
+    <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen, open" data-target="#nav,html"></a>
+</section>
+<aside class="bg-light lter b-l aside-md hide" id="notes">
+    <div class="wrapper">Notification</div>
+</aside>
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="lcDetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+</div>
+<script>
+    $(document).ready(function() {
+        //protectAdmin(); // calling from userHandling
+        // var getUserItem = sessionStorage.getItem('admin');
+        //var user = $.parseJSON(getUserItem);
+        //console.log(user.customerID);
+        //$('#username').html("Welcome back, " + user.userID);
+        //var usertype = user.usertype;
+        //$('#usertype').html(convertToDisplay(usertype, " ") + " (Customer ID - " + user.customerID + ")");
+
+        $("#lcDetailsModal").load("../lcDetailsModal.html");
+        //homeOperation(); //calling this method from assets/js/Utility/lcOperations.js
+        //shipperTest();
+        loadLcDetailsModal(); //this method is called from lcOperation.js
+
+
+    });
+</script>
+<script src="../assets/js/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="../assets/js/bootstrap.js"></script>
+<!-- App -->
+<script src="../assets/js/app.js"></script>
+<script src="../assets/js/slimscroll/jquery.slimscroll.min.js"></script>
+
+<script type="text/javascript" src="../assets/js/datepicker/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js" charset="UTF-8"></script>
+
+<script type="text/javascript">
+    $('.form_date').datetimepicker({
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    });
+</script>
+<script>
+    //once page button clicked, the user is redirected to importer/exporter.html, together with a html page name for loading (stored in a session)
+    $(".pagesButton").click(function() {
+        var page = $(this).attr('id');
+        var pageToLoad = {
+            page: page
+        };
+        sessionStorage.setItem('page', JSON.stringify(pageToLoad));
+        window.location.replace("/SMUtBank_TradeFinance/" + sessionStorage.usertype + "/" + sessionStorage.usertype + ".html");
+    });
+</script>

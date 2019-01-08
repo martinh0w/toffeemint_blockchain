@@ -1,0 +1,70 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h4 class="js-title-step"></h4>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <section class="panel panel-default">
+                    <div id="target_pre" class="modal-body" style="word-wrap: break-word;">
+                        <div class="row hide" data-step="1" data-title="Introduction">
+
+                            <div class="list-group no-radius alt">
+                                <div class="list-group-item">
+
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading"><h4><strong>Trade Finance on the Blockchain.</br></strong></h4></div>
+                                        <div class="panel-body"><p>	Hello! And welcome to our quick lesson on Trade Finance on the Blockchain. 
+
+                                                In this short session, we will be learning about how blockchain technology can revolutionise the Trade Finance Process, and how Service-Oriented Architecture (SOA) can help legacy systems adapt to distruptive technology. 
+
+                                                Here, we will take you through a typical Trade Finance Scenario, through which a shipment of goods is requested for, shipped, and collected.  
+
+                                            </p>
+                                            <!--</br>-->
+                                            <!--<img src="../assets/images/flow.png" class="img-fluid">-->
+                                            </br>
+                                            <p>
+                                                But first, we're going to give you an introductory quiz to see how much you know about Service-oriented Architecture (SOA), and trade finance. 
+                                            </p></div>
+                                    </div>
+
+
+                                    <!--<span class="badge bg-success">25</span>-->
+
+
+
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <script>
+                            //$(document).ready(function() {
+                            var chosenQuestions = [99,100,101,102,105,104,103,107,108];
+                            var pagesBeforeQuiz = 1;
+                            var answerCounter = 0;
+                            var preScore = 0;
+                            var timer = new Timer();
+
+                            preQuiz(chosenQuestions, pagesBeforeQuiz);
+                            // });
+                        </script>
+
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <!--<button type="button" class="btn btn-default js-btn-step pull-left" data-orientation="cancel" data-dismiss="modal"></button> -->
+            <!--<button type="button" class="btn btn-warning js-btn-step" data-orientation="previous"></button> -->
+            <button type="button" class="btn btn-primary js-btn-step" data-orientation="next" onclick='onNextPre(answerCounter++, pagesBeforeQuiz, chosenQuestions, timer)'></button>
+            <!---->
+        </div>
+
+    </div>
+</div>

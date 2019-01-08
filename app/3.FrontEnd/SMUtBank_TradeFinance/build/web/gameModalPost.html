@@ -1,0 +1,59 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h4 class="js-title-step"></h4>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <section class="panel panel-default">
+                    <div id="target_post" class="modal-body" style="word-wrap: break-word;">
+                        <div class="row hide" data-step="1" data-title="Post-Quiz">
+
+                            <div class="list-group no-radius alt">
+                                <div class="list-group-item">
+                                    <!--<span class="badge bg-success">25</span>-->
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <h4>
+                                                <strong>One more thing~</br>
+                                                </strong>
+                                            </h4>
+                                        </div>
+                                        <div class="panel-body">
+                                            <p>Thanks for participating in this short session on Trade Finance on the Blockchain!
+                                                Let's say goodbye with a quick quiz on what you have learnt.</p>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <script>
+                            var chosenQuestionsPost = [99,100,101,102,105,104,103,107,108];
+                            var pagesBeforeQuizPost = 1;
+                            var counterPost = 0;
+                            var postScore = 0;
+                            var timerPost = new Timer();
+
+                            postQuiz(chosenQuestionsPost, pagesBeforeQuizPost);
+                        </script>
+
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <!--<button type="button" class="btn btn-default js-btn-step pull-left" data-orientation="cancel" data-dismiss="modal"></button> -->
+            <!--<button type="button" class="btn btn-warning js-btn-step" data-orientation="previous"></button> -->
+            <button type="button" class="btn btn-primary js-btn-step" data-orientation="next" onclick='onNextPost(counterPost++, pagesBeforeQuizPost, chosenQuestionsPost, timerPost)'></button>
+            <!---->
+        </div>
+
+    </div>
+</div>

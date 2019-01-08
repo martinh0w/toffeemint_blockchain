@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<script>
+    var getUserItem = sessionStorage.getItem('user');
+    var user = $.parseJSON(getUserItem);
+    $('#username').html("Welcome back, "+user.username);
+    $('#usertype').html(user.usertype);
+
+    //e.preventDefault();
+</script>
+<h2 class="m-b-xs font-bold m-t-none" id="username"></h2>
+<h4 class="text-primary font-bold" id="usertype"></h4>

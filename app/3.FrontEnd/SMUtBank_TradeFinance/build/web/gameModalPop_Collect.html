@@ -1,0 +1,60 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h4 class="js-title-step"></h4>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <section class="panel panel-default">
+                    <div id="target_collect" class="modal-body" style="word-wrap: break-word;">
+                        <div class="row hide" data-step="1" data-title="Pop-Quiz">
+
+                            <div class="list-group no-radius alt">
+                                <div class="list-group-item">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <h4>
+                                                <strong>Integrating IoT with the Blockchain.</br>
+                                                </strong>
+                                            </h4>
+                                        </div>
+                                        <div class="panel-body">
+                                            <p>By exposing Blockchain services through an Service-oriented Architecture, automated systems used by stakeholders external to the bank (such as the shipper) can then be integrated, allowing all parties to easily optimise their hardware systems and quickly adopt new software technologies.
+                                            </p>
+                                            </br>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <script>
+                            //$(document).ready(function() {
+                            var chosenQuestions = [103, 110, 107, 110, 108];
+                            var pagesBeforeQuiz = 1;
+                            var answerCounter = 0;
+                            var timer = new Timer();
+
+                            popQuiz(chosenQuestions, pagesBeforeQuiz, "target_collect");
+                            //                            sessionStorage.quizCollect = 0;
+                            //});
+                        </script>
+
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <!--<button type="button" class="btn btn-default js-btn-step pull-left" data-orientation="cancel" data-dismiss="modal"></button> -->
+            <!--<button type="button" class="btn btn-warning js-btn-step" data-orientation="previous"></button> -->
+            <button type="button" class="btn btn-primary js-btn-step" data-orientation="next" onclick='onNextPop(answerCounter++, pagesBeforeQuiz, chosenQuestions, timer)'></button>
+            <!---->
+        </div>
+
+    </div>
+</div>

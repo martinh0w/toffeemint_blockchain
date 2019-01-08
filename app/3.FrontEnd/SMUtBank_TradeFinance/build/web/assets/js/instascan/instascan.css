@@ -1,0 +1,35 @@
+.scanner-laser {
+    position: absolute;
+    margin: 50px;
+    height: 30px;
+    width: 30px;
+    opacity: 0.5;
+}
+
+.laser-leftTop {
+    top: 0;
+    left: 0;
+    border-top: solid white 5px;
+    border-left: solid white 5px;
+}
+
+.laser-leftBottom {
+    bottom: 0;
+    left: 0;
+    border-bottom: solid white 5px;
+    border-left: solid white 5px;
+}
+
+.laser-rightTop {
+    top: 0;
+    right: 0;
+    border-top: solid white 5px;
+    border-right: solid white 5px;
+}
+
+.laser-rightBottom {
+    bottom: 0;
+    right: 0;
+    border-bottom: solid white 5px;
+    border-right: solid white 5px;
+}

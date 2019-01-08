@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<head>
+    <link rel="stylesheet" href="../assets/js/instascan/instascan.css" type="text/css" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/3.3.3/adapter.min.js"></script>
+    <script type="text/javascript" src="../assets/js/instascan/instascan.min.js"></script>
+</head>
+
+<section class="vbox">
+    <section class="scrollable">
+        <div class="wrapper-lg">
+            <h2 class="m-b-xs font-bold m-t-none">Scan QR code of Importer</h2>
+        </div>
+        <form id="" class="padder">
+            <div class="row">
+                <div class="col-sm-6">
+                    <section class="panel panel-default">
+                        <header class="panel-heading">
+                            <span class="h4">Scan QR Code</span>
+                        </header>
+                        <div class="panel-body">
+                            <div class="well" style="position: relative;display: inline-block;" id="scannerFrame">
+                                <video class="col-sm-12" id="preview"></video>
+                                <div class="scanner-laser laser-rightBottom" style="opacity: 0.5;"></div>
+                                <div class="scanner-laser laser-rightTop" style="opacity: 0.5;"></div>
+                                <div class="scanner-laser laser-leftBottom" style="opacity: 0.5;"></div>
+                                <div class="scanner-laser laser-leftTop" style="opacity: 0.5;"></div>
+                            </div>
+
+                        </div>
+
+                    </section>
+                </div>
+                <div class="col-sm-6">
+                    <section class="panel panel-default">
+                        <header class="panel-heading">
+                            <span class="h4">Scanned Result</span>
+                        </header>
+                        <div class="panel-body">
+                            <div class="well" style="position: relative;display: inline-block;" id="scannerFrame">
+                                <p id="qrContent"></p>
+                                <div id="modalButton"></div>
+                                <p class="m-t-lg"><i class="fa fa-spinner fa fa-spin fa fa-2x"></i></p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+        </form>
+
+
+    </section>
+    <!--End of Scrollable-->
+</section>
+<!--End of vbox-->
+<!-- Modal -->
+<div class="modal fade" id="lcDetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+</div>
+
+<script src="../assets/js/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="../assets/js/bootstrap.js"></script>
+<!-- App -->
+<script src="../assets/js/app.js"></script>
+<script src="../assets/js/slimscroll/jquery.slimscroll.min.js"></script>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        let scanner = new Instascan.Scanner({
+            video: document.getElementById('preview'),
+            mirror: true
+        });
+        scanner.addListener('scan', function(content) {
+            //console.log(content);
+            $("#qrContent").append(content);
+            verifyQrCodeUI(content);
+            /*console.log("end");
+            if (content !== "") {
+                scanner.stop();
+            }*/
+        });
+        Instascan.Camera.getCameras().then(function(cameras) {
+            if (cameras.length > 0) {
+                scanner.start(cameras[0]);
+                console.log("start");
+            } else {
+                console.error('No cameras found.');
+            }
+        }).catch(function(e) {
+            console.error(e);
+        });
+    })
+</script>

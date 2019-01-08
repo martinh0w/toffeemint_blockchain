@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-dark">
+
+<head>
+    <meta charset="utf-8" />
+    <title>SMU tBank Trade Finance - Login</title>
+    <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <link rel="stylesheet" href="assets/css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/animate.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/font.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/app.css" type="text/css" />
+    <!--[if lt IE 9]>
+          <script src="assets/js/ie/html5shiv.js"></script>
+          <script src="assets/js/ie/respond.min.js"></script>
+          <script src="assets/js/ie/excanvas.js"></script>
+        <![endif]-->
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+
+</head>
+
+<body class="">
+    <section id="content" class="m-t-lg wrapper-md animated fadeInUp">
+        <div class="container aside-xxl">
+            <div class="navbar-brand block" class='m-b-xl'>
+                
+                <img src='logo_tbank_alt_white.png' style='transform:scale(5.3)'>
+                </br>
+                </br>
+            </div>
+            <section class="panel panel-default bg-white m-t-lg">
+                <header class="panel-heading text-center">
+                    <strong>Sign in</strong>
+                </header>
+                <form class="panel-body wrapper-lg" role="form" id="signInForm">
+                    <input id="type" type="hidden" class="form-control" name="type" value="login" />
+                    <div class="form-group">
+                        <label class="control-label">Username</label>
+                        <input type="text" placeholder="Username" class="form-control input-lg" name="userID" id="userID" required />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Password</label>
+                        <input type="password" placeholder="Password" class="form-control input-lg" name="PIN" id="PIN" required />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">User Type</label>
+                        <select name="usertype" class="form-control m-b" id="usertype" required>
+                                <option value="">----Please select a user type----</option>
+                                <option value="importer">Importer</option>
+                                <option value="exporter">Exporter</option>
+                                <option value="shipper">Shipper</option>
+                            </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Group ID</label>
+                        <input type="text" placeholder="Group ID" class="form-control input-lg" name="groupID" id="groupID" required />
+                    </div>
+
+                    
+                    
+                    <div id="authError"></div>
+                    <div id=""></div>
+                    <!--<input type="submit" class="btn btn-primary" id="loginBtn" value="Sign in" />-->
+                    <button id="showOTPBtn" type="button" class="btn btn-primary">Login with SMS OTP</button>
+                    <div class="line line-dashed"></div>
+                </form>
+
+            </section>
+        </div>
+    </section>
+    <!--Login-->
+    <div class="modal fade" id="showOTPModal" tabindex="-1" role="dialog" aria-hidden="true"></div>
+
+    <!--
+        userID: "kinetic1",
+       PIN: "123456",
+       OTP: "999999"-->
+    <script src="assets/js/DAO/apiUrl.js"></script>
+    <script src="assets/js/DAO/userHandling.js"></script>
+    <script src="assets/js/DAO/notificationHandling.js"></script>
+    <script src="assets/js/DAO/gameHandling.js"></script>
+    <script src="assets/js/Utility/login.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $("#showOTPModal").load("OTPModal.html");
+
+            var getErrorItem = sessionStorage.getItem('error');
+            if (getErrorItem !== null) {
+                var error = $.parseJSON(getErrorItem);
+                //console.log("loginerror");
+                //console.log("are you here??");
+                $("#authError").html(error.errorMsg);
+            }
+
+            ////console.log(error);
+
+
+            $("#showOTPModal").on("hide", function() { // remove the event listeners when the dialog is dismissed
+                $("#showOTP a.btn").off("click");
+            });
+
+            $("#showOTPModal").on("hidden", function() { // remove the actual elements from the DOM when fully hidden
+                $("#showOTPModal").remove();
+            });
+            $("#showOTPBtn").click(function() {
+
+                perocessSMSOTP();
+
+
+            });
+            async function perocessSMSOTP() {
+                let otpResults = await createSMSOTP(); //this method is called from login.js
+                console.log(otpResults);
+                if (otpResults != null) {
+                    $("#authError").html(otpResults.errorMsg);
+                } else {
+                    $("#authError").html("");
+                }
+
+            }
+
+
+        });
+    </script>
+    <script src="assets/js/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="assets/js/bootstrap.js"></script>
+    <!-- App -->
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="assets/js/app.plugin.js"></script>
+</body>
+
+</html>

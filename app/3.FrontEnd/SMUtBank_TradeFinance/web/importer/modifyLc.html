@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+
+<head>
+    <link rel="stylesheet" href="../assets/css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="../assets/css/animate.css" type="text/css" />
+    <link rel="stylesheet" href="../assets/css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="../assets/css/font.css" type="text/css" />
+    <link rel="stylesheet" href="../assets/css/app.css" type="text/css" />
+    <link rel="stylesheet" href="../assets/css/bootstrap-datetimepicker.min.css">
+
+</head>
+
+<section class="vbox">
+    <section class="scrollable">
+        <div class="wrapper-lg">
+            <h2 class="m-b-xs font-bold m-t-none">Modify LC</h2>
+        </div>
+        <form id="amendLcForm" class="padder">
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <section class="panel panel-default">
+                        <header class="panel-heading">
+                            <span class="h4">Goods Description</span>
+                        </header>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <input id="goodsDescription" type="text" class="form-control goodsDesc" name="goodsDescription">
+                            </div>
+                            <div id="goodsDescription-p"></div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <section class="panel panel-default">
+                        <header class="panel-heading">
+                            <span class="h4">Other Information</span>
+                        </header>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <div class="">
+                                    <label>Ship Period</label>
+                                    <select id="shipPeriod" name="shipPeriod" class="form-control m-b ">
+                                        <option value="">--Select a ship period below--</option>
+                                        <option value="7days">7 Days</option> 
+                                        <option value="14days">14 Days</option>
+                                    </select>
+                                </div>
+                                <div id="shipPeriod-p"></div>
+                            </div>
+                            <div class="form-group">
+                                <label>Amount (SGD)</label>
+                                <input id="amount"  type="number" min="0"  class="form-control" data-type="digits">
+                                <div id="amount-p"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="expiryDate">Ship Date</label>
+                                <input type='text' class="form-control input-append date form_date_modify" id='expiryDate' data-date="" data-date-format="yyyy-mm-dd" data-link-field="expiryDate" data-link-format="yyyy-mm-dd" name="expiryDate">
+                                <div id="expiryDate-p"></div>
+                            </div>
+                            <div id="authError"></div>
+                            <footer class="text-center bg-light lter">
+                                <div class='col-lg-4 ' style='' id='actionDiv'><button type='button' class='actionButton btn btn-primary btn-lg' id="modifyLcButton">Modify</button></div>
+                                <div class='col-lg-4 ' style='' id='actionDiv'><button type='button' class='actionButton btn btn-default btn-lg' id='cancelButton'>Cancel</button></div>
+                            </footer>
+                        </div>
+
+                    </section>
+                </div>
+            </div>
+
+        </form>
+
+
+    </section>
+    <!--End of Scrollable-->
+</section>
+<!--End of vbox-->
+
+<!--modify lc pop quiz modal-->
+<div class="modal fade" id="modifyLCModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+
+<!-- pop quiz error modal
+    ======================================== -->
+<div class="modal fade" id="popErrorModal" tabindex="-1" role="dialog" aria-hidden="true">
+
+</div>
+
+<!--pop quiz success modal
+                        ======================================== -->
+<div class="modal fade" id="popCorrectModal" tabindex="-1" role="dialog" aria-hidden="true">
+
+</div>
+
+<!-- loading modal
+                    ======================================== -->
+<!-- loading modal
+                    ======================================== -->
+<div class="modal fade" id="loadingModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!--<div class="modal-header bg-warning">
+                                                                <h2>Submitting Letter of Credit...</h2>
+                                                            </div>-->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col">
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col" style="text-align: center;">
+                        <p class="font-bold h3 font-bold m-t text-primary">
+                            <i class="fa fa-spinner fa fa-spin fa fa-4x"></i>
+                        </p>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:20px;">
+                    <div class="col" style="text-align: center;">
+                        <p class="font-bold h3 font-bold m-t text-primary" id="loadingMsg">
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- error modal
+    ======================================== -->
+<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h2>Incorrect!</h2>
+            </div>
+            <div class="modal-body">
+                <p id="errorInfo">
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button id="CloseError" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function() {
+
+        processingModification();
+    });
+    async function processingModification() {
+        var refNum = getQueryVariable("refNum");
+
+        var importerAccount = ""; //no change
+        var exporterAccount = ""; //no change
+        var expiryDate = "";
+        var expiryPlace = "";
+        var confirmed = "";
+        var revocable = "";
+        var availableBy = "";
+        var termDays = "";
+        var amount = "";
+        var currency = ""; //no change
+        var applicableRules = "";
+        var partialShipments = "";
+        var shipDestination = "";
+        var shipDate = "";
+        var shipPeriod = "";
+        var goodsDescription = "";
+        var docsRequired = "";
+        var additionalConditions = "";
+        var senderToReceiverInfo = "";
+        var mode = "BC"; //no change
+
+        var errorMsg;
+        var globalErrorID;
+        var allNecessaryFields = [
+            "expiry_date",
+            "amount",
+            "ship_date",
+            "goods_description",
+            "additional_conditions",
+            "importer_account_num",
+            "exporter_account_num",
+            "expiry_place",
+            "confirmed",
+            "revocable",
+            "available_by",
+            "term_days",
+            "currency",
+            "applicable_rules",
+            "partial_shipments",
+            "ship_destination",
+            "ship_period",
+            "sender_to_receiver_info",
+            "docs_required"
+        ];
+        var allNecessaryFieldsName = [
+            "expiryDate",
+            "amount",
+            "shipDate",
+            "goodsDescription",
+            "additionalConditions",
+            "importerAccountNum",
+            "exporterAccountNum",
+            "expiryPlace",
+            "confirmed",
+            "revocable",
+            "availableBy",
+            "termDays",
+            "currency",
+            "applicableRules",
+            "partialShipments",
+            "shipDestination",
+            "shipPeriod",
+            "senderToReceiverInfo",
+            "docsRequired"
+        ];
+        var amendmentDetails = null;
+        var originalLc = null;
+        /*Part 1 - call getLcDetails to prefilled amendments*/
+        let lcDetails = await getLcDetails(userId, PIN, OTP, refNum); //calling this method from  assets/js/DAO/lcHandling.js
+
+        var globalErrorId =
+            lcDetails.Content.ServiceResponse.ServiceRespHeader.GlobalErrorID;
+        //console.log(globalErrorId);
+
+        if (globalErrorId === "010000") {
+            //Fetch lc details, store in fields object
+            var fields = {};
+            fields = lcDetails.Content.ServiceResponse.LC_Details.LC_record;
+            originalLc = fields;
+            importerAccount = fields.importer_account_num; //no change
+            //console.log(fields);
+            exporterAccount = fields.exporter_account_num; //no change
+            expiryDate = fields.expiry_date; //no change
+            expiryPlace = fields.expiry_place;
+            confirmed = fields.confirmed;
+            revocable = fields.revocable;
+            availableBy = fields.available_by;
+            termDays = fields.term_days;
+            amount = fields.amount;
+            currency = fields.currency; //no change
+            applicableRules = fields.applicable_rules;
+            partialShipments = fields.partial_shipments;
+            shipDestination = fields.ship_destination;
+            shipDate = fields.ship_date;
+            shipPeriod = fields.ship_period;
+            goodsDescription = fields.goods_description;
+            docsRequired = fields.docs_required;
+            additionalConditions = fields.additional_conditions;
+            senderToReceiverInfo = fields.sender_to_receiver_info;
+        }
+        console.log(originalLc);
+        var originalAmount = "";
+        var originalDesc = "";
+        var originalExpiryDate = "";
+        var originalShipPeriod = "";
+        /*Part 2 - call getLcAmendments function, fetch expiryDate, amount, shipPeriod and originalDesc from amendments */
+        let amendments = await getLcAmendments(userId, PIN, OTP, refNum);
+        var globalErrorId =
+            amendments.Content.ServiceResponse.ServiceRespHeader.GlobalErrorID;
+        if (globalErrorId === "010000") {
+            var fields = {};
+            fields = amendments.Content.ServiceResponse.LC_Amend.LC_Amend;
+            amendmentDetails = fields;
+            originalExpiryDate = fields.expiry_date; //no change
+            originalAmount = fields.amount;
+            originalShipPeriod = fields.shipPeriod;
+            originalDesc = fields.goods_description;
+
+        }
+
+        /*Part 3- compare original lc and amendments */
+        if (amendmentDetails !== null && originalLc !== null) {
+            for (var field in amendmentDetails) {
+                /*convert attribute format from under_score to camelCase (ship_period--> shipPeriod).
+                This is because all "write" methd(applyLc, amendLc) use camelCase parameter, 
+                all "read" method(getLcDetails) use under_score parameter*/
+                var fieldCamel = attributeMapping(field);
+                var originalValue = originalLc[field];
+                var amendedValue = amendmentDetails[field];
+                if (fieldCamel === "shipPeriod") {
+                    //swap current value to be the first value in the dropdown list
+                    $('#shipPeriod option[value="' + shipPeriod + '"]').insertBefore(
+                        '#shipPeriod option[value=""]'
+                    );
+                    //display current option in dropdown list
+                    $("#shipPeriod").val($("#shipPeriod option:first").val());
+                }
+                //display the original value of each filed as a placeholder
+                $("#" + fieldCamel).attr("placeholder", originalValue);
+                //console.log(fieldCamel);
+                var suggestion = "";
+                if (originalValue !== amendedValue) {
+                    /*if field has been changed, indicating the amended value below input box */
+                    if (amendedValue !== null) {
+                        var p =
+                            "<p class='btn-danger'> Exporter has suggested to amend : " +
+                            amendedValue +
+                            "</p>";
+                        $("#" + fieldCamel + "-p").append(p);
+                    }
+                }
+            }
+        }
+        if (sessionStorage.quizModifyLC == 1 && sessionStorage.gameMode == 1) {
+            $('#popCorrectModal').load("../popCorrectModal.html");
+            $('#popErrorModal').load("../popErrorModal.html");
+
+            $('#modifyLCModal').load("../gameModalPop_Modify.html", function() {
+                $('#modifyLCModal').modalSteps({
+                    'completeCallback': function() {
+                        sessionStorage.quizModifyLC = 0;
+                    }
+                });
+
+            });
+            $('#modifyLcButton').attr('data-toggle', 'modal');
+            $('#modifyLcButton').attr('data-target', '#modifyLCModal');
+            $('#modifyLcButton').attr('data-backdrop', 'static');
+            $('#modifyLcButton').attr('data-keyboard', 'false');
+        }
+        // if user clicks modifyLc button,
+        $("#modifyLcButton").click(function() {
+            if (sessionStorage.quizModifyLC == 0 || sessionStorage.gameMode == 0) { // learning mode, initialize modal for pop quiz
+                $('#modifyLcButton').removeAttr('data-toggle', 'modal');
+                $('#modifyLcButton').removeAttr('data-target', '#applyLCModal');
+                $('#modifyLcButton').removeAttr('data-backdrop', 'static');
+                $('#modifyLcButton').removeAttr('data-keyboard', 'false');
+                $('#loadingModal').modal('show');
+
+                //store all values of lc details into an object
+                var lc = {
+                    referenceNumber: refNum,
+                    importerAccount: importerAccount,
+                    exporterAccount: exporterAccount,
+                    expiryDate: expiryDate,
+                    expiryplace: expiryPlace,
+                    confirmed: confirmed,
+                    revocable: revocable,
+                    availableBy: availableBy,
+                    termDays: termDays,
+                    amount: amount,
+                    currency: currency,
+                    applicableRules: applicableRules,
+                    partialShipments: partialShipments,
+                    shipDestination: shipDestination,
+                    shipDate: shipDate,
+                    shipPeriod: shipPeriod,
+                    goodsDescription: goodsDescription,
+                    docsRequired: docsRequired,
+                    additionalConditions: additionalConditions,
+                    senderToReceiverInfo: senderToReceiverInfo,
+                    mode: mode
+                };
+                /* call processModification --> as modifylc() is async function , only another async function can access its returned value.
+                 $("#modifyLcButton").click(function() {} is sync function, hence get value from modifyLc directly */
+                modifyLcOperation(lc);
+            }
+        });
+        $("#cancelButton").click(function() {
+            window.location.replace("/SMUtBank_TradeFinance/importer/importer.html");
+        });
+    }
+</script>
+
+<script type="text/javascript" src="../assets/js/datepicker/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js" charset="UTF-8"></script>
+<script type="text/javascript">
+     var date = new Date();
+date.setDate(date.getDate());
+    $('.form_date_modify').datetimepicker({
+        pickerPosition: 'top-right',
+        startDate: date,
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    });
+</script>
